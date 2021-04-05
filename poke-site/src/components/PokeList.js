@@ -3,19 +3,19 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const PokeList = ({pokeData}) => {
-  return (
-    <List>
-        {pokeData.map((data, id) => (
-        <Link to={`/pokemon/${data.name}`}>
-          <PokeContainer className='card' key={data.name}>
-            <h3>{`${data.name} ${id+1}`}</h3>
-            <img src={`https://pokeres.bastionbot.org/images/pokemon/${id+1}.png`} alt='pokemon' />
-            <Link to={`/${data.name}`}></Link>
-          </PokeContainer>
-        </Link>
-        ))}
-    </List>
-  );
+
+    return (
+        <List>
+            {pokeData.map((data, id) => (
+            <Link to={`/pokemon/${id}`} key={id+1}>
+            <PokeContainer className='card'>
+                <h3>{`${data.name}`}</h3>
+                <img src={`https://pokeres.bastionbot.org/images/pokemon/${id+1}.png`} alt='pokemon' />
+            </PokeContainer>
+            </Link>
+            ))}
+        </List>
+    );
 }
 
 const List = styled.div`
@@ -24,8 +24,10 @@ const List = styled.div`
     grid-column-gap: 0rem;
     grid-row-gap: 1rem;
     a {
+        cursor: default;
         text-decoration: none;
     }
+    overflow: hidden;
 `;
 
 const PokeContainer = styled.div`
@@ -35,27 +37,76 @@ const PokeContainer = styled.div`
     justify-content: center;
     align-items: center;
     width: 80%;
-    border: solid #f79393;
+    box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
     border-radius: 25px;
+    border-width: 5px;
     padding: 0rem 0rem 1rem 0rem;
     margin: 0rem 0rem 0rem 2rem;
     //overflow: hidden;
-    background: linear-gradient(to bottom right, thistle, lightblue, white);
+    //background: linear-gradient(to bottom right, thistle, lightblue, white);
     &.card:hover {
-        background: linear-gradient(to bottom right, hotpink, white, hotpink);
+        background: linear-gradient(to bottom right,hotpink, white, hotpink);
+        transform: scale(0.9);
+        transition: 1.3s ease;
+        border: none;
+        //border-radius: 50%;
+        position: relative;
+        //overflow: hidden;
+        //background Color shift
+        background-image: (linear-gradient(270deg, #8e9ac2, #42579a));
+        background-size: 400% 400%;
+        animation: TransitioningBackground 4.5s ease infinite;
+        //animation-iteration-count: 2;
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            width: 40px;
+            height: 100%;
+            top: 0;
+            filter: blur(40px);
+            transform: translateX(-100px) skewX(-15deg);
+        }
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2);
+            width: 30px;
+            height: 100%;
+            top: 0;
+            filter: blur(5px);
+            transform: translateX(-100px) skewX(-15deg);
+        }
+        &::before, &::after {
+            transform: translateX(300px) skewX(-15deg);
+            transition: 0.7s;
+        }
+        @keyframes TransitioningBackground {
+            0% {
+                background-position: 1% 0%;
+            }
+            50% {
+                background-position: 99% 100%;
+            }
+            100% {
+                background-position: 1% 0%;
+            }
+        }
+
         img {
-            transform: scale(2.3) translateY(-8px) skew(3.5deg);
-            transition: 2s ease;
+            transform: scale(2.3) translateY(-8px) translateX(-4px) skew(3.5deg);
+            transition: 1.75s ease;
             -webkit-filter: drop-shadow(10px 10px 10px #929191);
             filter: drop-shadow(7px 7px 7px #696969);
             object-fit: cover;
         }
         h3 {
-            transform: scale(2) translateY(-13px) skew(3deg);
-            transition: 2s ease;
+            transform: scale(2.5) translateY(-13px) skew(3deg);
+            transition: 1.8s ease;
             color: whitesmoke;
             z-index: 0;
-            opacity: 0.9;
             font-weight: 400px;
             text-shadow: 
                 1px 1px 1px #919191,
@@ -72,8 +123,8 @@ const PokeContainer = styled.div`
                 1px 22px 10px rgba(16,16,16,0.2),
                 1px 25px 35px rgba(16,16,16,0.2),
                 1px 30px 60px rgba(16,16,16,0.4);
-            }
         }
+    }
     img {
         object-fit: cover;
         width: 12vh;
