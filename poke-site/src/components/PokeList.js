@@ -2,19 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const PokeList = ({pokeData}) => {
+const PokeList = ({pokeData, nextPage, prevPage}) => {
 
     return (
-        <List>
-            {pokeData.map((data, id) => (
-            <Link to={`/pokemon/${id}`} key={id+1}>
-            <PokeContainer className='card'>
-                <h3>{`${data.name}`}</h3>
-                <img src={`https://pokeres.bastionbot.org/images/pokemon/${id+1}.png`} alt='pokemon' />
-            </PokeContainer>
-            </Link>
-            ))}
-        </List>
+        <>
+            <List>
+                {pokeData.map((data, id) => (
+                <Link to={`/${data.name}/${data.url.substring(34, data.url.length-1)}/${id}`} key={id}>
+                    <PokeContainer className='card'>
+                        <h3>{`${data.name}`}</h3>
+                        <img src={`https://pokeres.bastionbot.org/images/pokemon/${data.url.substring(34, data.url.length-1)}.png`} alt='pokemon' />
+                    </PokeContainer>
+                </Link>
+                ))}
+            </List>
+            {prevPage && <button onClick={prevPage}>Previous</button>}
+            {nextPage && <button onClick={nextPage}>Next</button>}
+        </>
     );
 }
 
@@ -49,14 +53,14 @@ const PokeContainer = styled.div`
         transform: scale(0.9);
         transition: 1.3s ease;
         border: none;
-        //border-radius: 50%;
+        border-radius: 50%;
         position: relative;
         //overflow: hidden;
         //background Color shift
         background-image: (linear-gradient(270deg, #8e9ac2, #42579a));
         background-size: 400% 400%;
-        animation: TransitioningBackground 4.5s ease infinite;
-        //animation-iteration-count: 2;
+        animation: TransitioningBackground 3.5s ease infinite;
+        //animation-iteration-count: 1;
         &::before {
             content: '';
             display: block;
@@ -136,3 +140,22 @@ const PokeContainer = styled.div`
 `;
 
 export default PokeList;
+
+/*return (
+    <>
+    <List>
+        {pokeData.map((data, id) => (
+        <Link to={`/pokemon/${id+1}`} key={id}>
+        <PokeContainer className='card'>
+            <h3>{`${data.name}`}</h3>
+            <h3>{`${data.url}`}</h3>
+            <img src={`https://pokeres.bastionbot.org/images/pokemon/${id+1}.png`} alt='pokemon' />
+        </PokeContainer>
+        </Link>
+        ))}
+    </List>
+    <button onClick={prevPage}>Previous</button>
+    <button onClick={nextPage}>Next</button>
+    </>
+
+        );*/
