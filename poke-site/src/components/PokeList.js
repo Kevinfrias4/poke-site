@@ -1,28 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import { listSlide } from '../animations'
 
-const PokeList = ({pokeData, nextPage, prevPage}) => {
+const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) => {
+    
+    function showDet () {
+        setShowDetail(!showDetails);
+    };
 
     return (
         <>
-            <List>
+            <Pagination>
+                {prevPage && <Button onClick={prevPage}>Previous</Button>}
+                {nextPage && <Button onClick={nextPage}>Next</Button>}
+            </Pagination>
+            <List variants={listSlide} initial='hidden' animate='show' exit='exit'>
                 {pokeData.map((data, id) => (
-                <Link to={`/${data.name}/${data.url.substring(34, data.url.length-1)}/${id}`} key={id}>
+                <Link to={`/${data.name}/${data.url.substring(34, data.url.length-1)}/${id}`} key={id} onClick={showDet}>
                     <PokeContainer className='card'>
-                        <h3>{`${data.name}`}</h3>
-                        <img src={`https://pokeres.bastionbot.org/images/pokemon/${data.url.substring(34, data.url.length-1)}.png`} alt='pokemon' />
+                        <motion.h3>{`${data.name}`}</motion.h3>
+                        <motion.img src={`https://pokeres.bastionbot.org/images/pokemon/${data.url.substring(34, data.url.length-1)}.png`} alt='pokemon' />
                     </PokeContainer>
                 </Link>
                 ))}
             </List>
-            {prevPage && <button onClick={prevPage}>Previous</button>}
-            {nextPage && <button onClick={nextPage}>Next</button>}
         </>
     );
 }
 
-const List = styled.div`
+const List = styled(motion.div)`
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 0.5fr));
     grid-column-gap: 0rem;
@@ -32,6 +40,8 @@ const List = styled.div`
         text-decoration: none;
     }
     overflow: hidden;
+    height: 95vh;
+    margin-top: 1.5rem;
 `;
 
 const PokeContainer = styled.div`
@@ -44,8 +54,8 @@ const PokeContainer = styled.div`
     box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
     border-radius: 25px;
     border-width: 5px;
-    padding: 0rem 0rem 1rem 0rem;
-    margin: 0rem 0rem 0rem 2rem;
+    padding: 0rem 0rem 2rem 0rem;
+    margin: 0.5rem 0rem 0rem 2rem;
     //overflow: hidden;
     //background: linear-gradient(to bottom right, thistle, lightblue, white);
     &.card:hover {
@@ -53,7 +63,7 @@ const PokeContainer = styled.div`
         transform: scale(0.9);
         transition: 1.3s ease;
         border: none;
-        border-radius: 50%;
+        //border-radius: 50%;
         position: relative;
         //overflow: hidden;
         //background Color shift
@@ -129,6 +139,7 @@ const PokeContainer = styled.div`
                 1px 30px 60px rgba(16,16,16,0.4);
         }
     }
+    
     img {
         object-fit: cover;
         width: 12vh;
@@ -136,6 +147,26 @@ const PokeContainer = styled.div`
     }
     h3 {
         color: grey;
+    }
+`;
+
+const Pagination = styled.div`
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    margin: 0.7rem;
+    left: 44%;
+    top: -1.8%;
+`;
+
+const Button = styled.button`
+    outline: none;
+    border: none;
+    padding: 0.5rem;
+    &:hover {
+        background:gold;
+        transition: 1s;
+        transform: scale(1.1)
     }
 `;
 
