@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { popUp, typeColor } from '../animations';
@@ -23,18 +23,19 @@ const Pokemon = ({ pokeData, pathId, location, pokeType, setPokeType, showDetail
     console.log(num[num.length-1]*1);
     let num1 = num[num.length-1]*1;
 
+    if(pathId === undefined) {
+        pathId = 1;
+    };
+
     useEffect(() => {
         const getPokemonType = async () => {
-            if(pathId === undefined) {
-                pathId = 1;
-            };
             const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pathId}`);
             //setPokeType(res.data.types[0].type.name)
             setPokeType(res.data);
             console.log(res.data)
         }
         return getPokemonType()
-    },[num1, pathId]);
+    },[num1, pathId, setPokeType]);
 
     return (
         <AnimatePresence>
@@ -46,7 +47,7 @@ const Pokemon = ({ pokeData, pathId, location, pokeType, setPokeType, showDetail
                         const color = typeColor[pokeType.types[0].type.name];
                         return (
                             <motion.div style={{background:`linear-gradient(to bottom, ${color}, white)`, width: '100%', borderRadius: '50px',  boxShadow:'7px 7px 30px #696969' }}>
-                                <ParticleBackground style={{zIndex: 0, position: 'absolute', display: 'flex'}} />
+                                <ParticleBackground />
                                 <motion.h1>{`${data.name.toUpperCase()}`}</motion.h1>
                                 <motion.h2>#{pathId}</motion.h2>
                                 <motion.img src={`https://pokeres.bastionbot.org/images/pokemon/${pathId}.png`} alt='pokemon' />
@@ -82,7 +83,7 @@ const Types = styled(motion.div)`
         padding: 1rem;
         margin: 0rem 1rem 0rem 1rem;
         border-radius: 25px;
-        box-shadow: inset 10px 10px 13px 0 rgba(0, 0, 0, 0.2), inset -10px -10px 8px 0 rgba(255, 255, 255, 0.3);
+        //box-shadow: inset 10px 10px 13px 0 rgba(0, 0, 0, 0.2), inset -10px -10px 8px 0 rgba(255, 255, 255, 0.3);
         box-shadow: inset 10px 10px 7px 0 rgba(0, 0, 0, 0.2), inset -10px -10px 18px 0 rgba(255, 255, 255, 0.3);
         color: #696969;
     }

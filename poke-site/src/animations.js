@@ -38,11 +38,11 @@ export const listSlide = {
             //when:'beforeChildren',
             staggerChildren: 0.5
         },
-        exit:{
-            x: -500,
-            opacity: 0,
-            transition: { duration: 0.75 },
-        },
+    },
+    exit:{
+        x: -500,
+        opacity: 0,
+        transition: { duration: 0.75 },
     },
 };
 
