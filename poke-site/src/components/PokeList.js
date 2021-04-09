@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { listSlide } from '../animations'
 
 const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) => {
@@ -44,7 +44,7 @@ const List = styled(motion.div)`
     margin-top: 1.5rem;
 `;
 
-const PokeContainer = styled.div`
+const PokeContainer = styled(motion.div)`
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -80,7 +80,7 @@ const PokeContainer = styled.div`
             height: 100%;
             top: 0;
             filter: blur(40px);
-            transform: translateX(-100px) skewX(-15deg);
+            transform: translateX(-100px) skewX(-20deg);
         }
         &::after {
             content: '';
