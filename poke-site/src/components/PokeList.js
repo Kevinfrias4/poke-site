@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { listSlide } from '../animations'
 
 const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) => {
@@ -19,7 +19,7 @@ const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) 
             <List variants={listSlide} initial='hidden' animate='show' exit='exit'>
                 {pokeData.map((data, id) => (
                 <Link to={`/${data.name}/${data.url.substring(34, data.url.length-1)}/${id}`} key={id} onClick={showDet}>
-                    <PokeContainer className='card'>
+                    <PokeContainer onScroll={{opacity: '0'}} className='card'>
                         <motion.h3>{`${data.name}`}</motion.h3>
                         <motion.img src={`https://pokeres.bastionbot.org/images/pokemon/${data.url.substring(34, data.url.length-1)}.png`} alt='pokemon' />
                     </PokeContainer>

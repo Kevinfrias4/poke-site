@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { popUp, typeColor } from '../animations';
 import { AnimatePresence, motion } from 'framer-motion';
 import axios from 'axios';
 import ParticleBackground from '../particleBackground';
-import Particles from 'react-particles-js';
 
 const Pokemon = ({ pokeData, pathId, location, pokeType, setPokeType, showDetail, setShowDetail}) => {
 
@@ -35,7 +34,7 @@ const Pokemon = ({ pokeData, pathId, location, pokeType, setPokeType, showDetail
             console.log(res.data)
         }
         return getPokemonType()
-    },[num1, pathId])
+    },[num1, pathId]);
 
     return (
         <AnimatePresence>
@@ -46,7 +45,7 @@ const Pokemon = ({ pokeData, pathId, location, pokeType, setPokeType, showDetail
                         num = id;
                         const color = typeColor[pokeType.types[0].type.name];
                         return (
-                            <motion.div style={{background:`linear-gradient(to bottom, ${color}, white)`, width: '100%', borderRadius: '50px'}}>
+                            <motion.div style={{background:`linear-gradient(to bottom, ${color}, white)`, width: '100%', borderRadius: '50px',  boxShadow:'7px 7px 30px #696969' }}>
                                 <ParticleBackground style={{zIndex: 0, position: 'absolute', display: 'flex'}} />
                                 <motion.h1>{`${data.name.toUpperCase()}`}</motion.h1>
                                 <motion.h2>#{pathId}</motion.h2>
@@ -83,7 +82,8 @@ const Types = styled(motion.div)`
         padding: 1rem;
         margin: 0rem 1rem 0rem 1rem;
         border-radius: 25px;
-        box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
+        box-shadow: inset 10px 10px 13px 0 rgba(0, 0, 0, 0.2), inset -10px -10px 8px 0 rgba(255, 255, 255, 0.3);
+        box-shadow: inset 10px 10px 7px 0 rgba(0, 0, 0, 0.2), inset -10px -10px 18px 0 rgba(255, 255, 255, 0.3);
         color: #696969;
     }
 `;
@@ -97,7 +97,7 @@ const PokeCard = styled(motion.div)`
     width: 60%;
     height: 80vh;
     margin-left: 13rem;
-    box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
+    //box-shadow: 0px -9px 30px 17px rgba(134, 117, 156, 0.849);
     border-radius: 50px;
     background: white;
     overflow-y: scroll;
@@ -105,6 +105,8 @@ const PokeCard = styled(motion.div)`
         width: 0rem;
     }
     img {
+        animation: bounce 15s ease infinite;
+        animation-iteration-count: 1;
         width: 50vh;
         height: 50vh;
         object-fit: cover;
@@ -112,6 +114,12 @@ const PokeCard = styled(motion.div)`
         filter: drop-shadow(7px 7px 7px #696969);
         transform: scale(1.1) translateY(-450px) translateX(-4px) skew(3.5deg);
     }
+    @keyframes bounce {
+        50% {
+            transform: translateX(-5%) translateY(-129.9%) scale(1.2) skewX(3.5deg)
+        }
+    }
+
     h1 {
         transform: translateY(-450px);
         color: #696969;

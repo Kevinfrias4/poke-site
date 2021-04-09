@@ -58,7 +58,8 @@ function App() {
     return (
       <Loading>
         <h1>LOADING...</h1>
-        <img src={`https://pokeres.bastionbot.org/images/pokemon/${1}.png`} alt=""/>
+        <img src='https://iconape.com/wp-content/png_logo_vector/pokeball-logo.png' alt='' />
+        {/*<img src={`https://pokeres.bastionbot.org/images/pokemon/${1}.png`} alt=""/>*/}
       </Loading>
     )
   }
@@ -73,6 +74,7 @@ function App() {
 
 const Loading = styled.div`
   display: flex;
+  position: relative;
   justify-content: center;
   margin-top: 4rem;
   height: 100%;

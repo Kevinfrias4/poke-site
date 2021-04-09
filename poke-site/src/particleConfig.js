@@ -1,27 +1,31 @@
 const particlesConfig = {
     particles: {
       number: {
-        value: 60,
-        //50
+        value: 40,
+        //60
         density: {
           enable: true,
           value_area: 800
         }
       },
       color: {
-        value: "#000000"
+        //value: "#4016a1"
+        value: '#000000'
       },
       shape: {
         type: "circle",
         stroke: {
-          width: 0,
+          width: 1,
           color: "#ffffff"
         },
         polygon: {
           nb_sides: 5
         },
         image: {
-          src: "img/github.svg",
+          //src: "img/github.svg",
+          //src: 'https://images.vexels.com/media/users/3/136286/isolated/preview/619aebd588e40eb596c3fa768e9dff5e-lightning-bolt-icon-by-vexels.png',
+          src: 'https://iconape.com/wp-content/png_logo_vector/pokeball-logo.png',
+          //src: 'https://www.freeiconspng.com/thumbs/pokeball-png/pokeball-hd-png-5.png',
           width: 100,
           height: 100
         }
@@ -38,7 +42,8 @@ const particlesConfig = {
         }
       },
       size: {
-        value: 7,
+        value: 20,
+        //value: 33,
         random: true,
         anim: {
           enable: false,
@@ -56,14 +61,14 @@ const particlesConfig = {
       },
       move: {
         enable: true,
-        speed: 1,
+        speed: 3,
         direction: "top-right",
         random: true,
-        straight: false,
+        straight: true,
         out_mode: "out",
         bounce: false,
         attract: {
-          enable: true,
+          enable: false,
           rotateX: 600,
           rotateY: 1200
         }

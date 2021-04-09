@@ -11,8 +11,8 @@ export const popUp = {
         transition: {
             type: 'spring',
             ease: 'easeOut',
-            bounce: 0.4,
-            duration: 1.75,
+            bounce: 0.5,
+            duration: 1.95,
         },
     },
     exit:{
