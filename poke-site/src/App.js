@@ -5,6 +5,7 @@ import styled from 'styled-components';
 //import components
 import PokeList from './components/PokeList';
 import Pokemon from './components/Pokemon';
+import { motion } from 'framer-motion';
 
 function App() {
   
@@ -57,8 +58,25 @@ function App() {
   if (isLoading) {
     return (
       <Loading>
-        <h1>LOADING...</h1>
-        <img src='https://iconape.com/wp-content/png_logo_vector/pokeball-logo.png' alt='' />
+        <motion.img 
+          animate={{
+            //scale: [1, 1.7, 1.7, 1, 1],
+            //scale: [1.2, 1.75, 1.75, 0.5, 0.7],
+            //scale: [0.7, 0.5, 1.75, 1.75, 0],
+            scale: [0, 1.75, 1.75, 0.5, 4.5],
+            rotate: [0, 0, 270, 270, 0],
+            opacity: [1, 1, 1, 0.85, 0],
+            borderRadius: ["20%", "20%", "50%", "50%", "20%"]
+          }}
+          transition={{
+            duration: 2,
+            ease: "easeInOut",
+            times: [0, 0.2, 0.5, 0.8, 1],
+            loop: Infinity,
+            repeatDelay: 1
+          }}
+          //https://iconape.com/wp-content/png_logo_vector/pokeball-logo.png
+          src='https://www.freeiconspng.com/thumbs/pokeball-png/pokeball-hd-png-5.png' alt='' />
         {/*<img src={`https://pokeres.bastionbot.org/images/pokemon/${1}.png`} alt=""/>*/}
       </Loading>
     )
@@ -74,10 +92,15 @@ function App() {
 
 const Loading = styled.div`
   display: flex;
-  position: relative;
-  justify-content: center;
-  margin-top: 4rem;
+  width: 100%;
   height: 100%;
+  position: absolute;
+  justify-content: center;
+  img {
+    position: absolute;
+    margin-top: 10rem;
+    object-fit: cover;
+  }
 `;
 
 export default App;

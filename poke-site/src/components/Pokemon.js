@@ -83,8 +83,8 @@ const Types = styled(motion.div)`
         padding: 1rem;
         margin: 0rem 1rem 0rem 1rem;
         border-radius: 25px;
-        //box-shadow: inset 10px 10px 13px 0 rgba(0, 0, 0, 0.2), inset -10px -10px 8px 0 rgba(255, 255, 255, 0.3);
-        box-shadow: inset 10px 10px 7px 0 rgba(0, 0, 0, 0.2), inset -10px -10px 18px 0 rgba(255, 255, 255, 0.3);
+        box-shadow: inset 10px 10px 13px 0 rgba(0, 0, 0, 0.4), inset -10px -10px 8px 0 rgba(255, 255, 255, 0.3);
+        //box-shadow: inset 10px 10px 7px 0 rgba(0, 0, 0, 0.2), inset -10px -10px 18px 0 rgba(255, 255, 255, 0.3);
         color: #696969;
     }
 `;
