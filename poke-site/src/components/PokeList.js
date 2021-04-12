@@ -1,18 +1,59 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { listSlide } from '../animations'
+import axios from 'axios';
 
 const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) => {
-    
+
     function showDet () {
         setShowDetail(!showDetails);
     };
 
+    const history = useHistory();
+    const[text, setText] = useState('')
+    const[searched, setSearched] = useState([])
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const getPokemon = async () => {
+            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=1118`);
+            setSearched(res.data.results);
+        }
+        getPokemon()
+        searched.map((data, id) => {
+            if (text === data.name) {
+                document.body.style.overflow = 'auto';
+                /*if (id > 8) {
+                    id = 0;
+                }*/
+                history.push(`/${text}/${data.url.substring(34, data.url.length-1)}/${0}`);
+                setShowDetail(!showDetails)
+                setText('')
+            } else {
+                console.log('not a pokemon')
+            }
+            return null
+        })
+    }
+
+    const handleChange = (e) => {
+        setText(e.target.value);
+    }
+
     return (
         <>
             <Pagination>
+            <form>
+                <input 
+                    type="text"
+                    value={text}
+                    onChange={handleChange}
+                    placeholder='Search Pokémon!'
+                />
+                <input type="submit" onClick={handleSubmit} />
+            </form>
                 {prevPage && <Button onClick={prevPage}>Previous</Button>}
                 {nextPage && <Button onClick={nextPage}>Next</Button>}
             </Pagination>
@@ -171,22 +212,3 @@ const Button = styled.button`
 `;
 
 export default PokeList;
-
-/*return (
-    <>
-    <List>
-        {pokeData.map((data, id) => (
-        <Link to={`/pokemon/${id+1}`} key={id}>
-        <PokeContainer className='card'>
-            <h3>{`${data.name}`}</h3>
-            <h3>{`${data.url}`}</h3>
-            <img src={`https://pokeres.bastionbot.org/images/pokemon/${id+1}.png`} alt='pokemon' />
-        </PokeContainer>
-        </Link>
-        ))}
-    </List>
-    <button onClick={prevPage}>Previous</button>
-    <button onClick={nextPage}>Next</button>
-    </>
-
-        );*/

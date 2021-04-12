@@ -27,12 +27,14 @@ export const popUp = {
 
 export const listSlide = {
     hidden: {
-        x: -500,
+        //x: -500,
+        y:-20,
         opacity: 0,
     },
     show: {
-        x: 0,
+        //x: 0,
         opacity: 1,
+        y: 0,
         transition: {
             duration: 1.75,
             //when:'beforeChildren',

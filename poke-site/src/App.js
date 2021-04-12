@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 
 function App() {
   
-  const[pokeType, setPokeType] = useState('')
+  const[pokeType, setPokeType] = useState('');
   const[pokeData, setPokeData] = useState([]);
   const[showDetail, setShowDetail] = useState(false)
   const[isLoading, setIsLoading] = useState(true);
@@ -20,7 +20,7 @@ function App() {
   const pathId = location.pathname.split('/')[2];
 
 
-  useEffect((pathId) => {
+  useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true)
       let cancel
@@ -29,11 +29,9 @@ function App() {
           cancelToken: new axios.CancelToken(c => cancel = c)
         });
         const data = response.data;
-        console.log(data)
         setNextPageUrl(data.next)
         setPrevPageUrl(data.previous)
         setPokeData(data.results);
-        //console.log(res)
       } catch(err) {
         console.log(err)
       }
@@ -45,7 +43,7 @@ function App() {
       fetchData();
     }, 2000);
 
-  }, [currPage])
+  }, [currPage]);
 
   function nextPage() {
     setCurrPage(nextPageUrl);
@@ -84,7 +82,7 @@ function App() {
 
   return (
     <div>
-      <Route path={'/'} render={() => <PokeList nextPage={nextPageUrl ? nextPage : null} setShowDetail={setShowDetail} prevPage={prevPageUrl ? prevPage : null} pokeData={pokeData} pokeType={pokeType} />} />
+      <Route path={'/'} render={() => <PokeList pathId={pathId} setPokeData={setPokeData} nextPage={nextPageUrl ? nextPage : null} setShowDetail={setShowDetail} prevPage={prevPageUrl ? prevPage : null} pokeData={pokeData} pokeType={pokeType} />} />
       <Route path={['/pokemon/:pokemonId', '/']} render={() => <Pokemon location={location} setShowDetail={setShowDetail} showDetail={showDetail} pokeData={pokeData} pathId={pathId} pokeType={pokeType} setPokeType={setPokeType}/>} />
     </div>
   );

@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import axios from 'axios';
 import ParticleBackground from '../particleBackground';
 
-const Pokemon = ({ pokeData, pathId, location, pokeType, setPokeType, showDetail, setShowDetail}) => {
+const Pokemon = ({ pokeData, pathId, location, pokeType, setPokeType, showDetail, setShowDetail }) => {
 
     const history = useHistory();
     //Exit Detail
@@ -20,7 +20,7 @@ const Pokemon = ({ pokeData, pathId, location, pokeType, setPokeType, showDetail
     }
     
     let num = location.pathname;
-    console.log(num[num.length-1]*1);
+    //console.log(num[num.length-1]*1);
     let num1 = num[num.length-1]*1;
 
     if(pathId === undefined) {
@@ -32,7 +32,7 @@ const Pokemon = ({ pokeData, pathId, location, pokeType, setPokeType, showDetail
             const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pathId}`);
             //setPokeType(res.data.types[0].type.name)
             setPokeType(res.data);
-            console.log(res.data)
+            //console.log(res.data)
         }
         return getPokemonType()
     },[num1, pathId, setPokeType]);
@@ -48,7 +48,8 @@ const Pokemon = ({ pokeData, pathId, location, pokeType, setPokeType, showDetail
                         return (
                             <motion.div style={{background:`linear-gradient(to bottom, ${color}, white)`, width: '100%', borderRadius: '50px',  boxShadow:'7px 7px 30px #696969' }}>
                                 <ParticleBackground />
-                                <motion.h1>{`${data.name.toUpperCase()}`}</motion.h1>
+                                {/*<motion.h1>{`${data.name.toUpperCase()}`}</motion.h1>*/}
+                                <h1>{pokeType.name.toUpperCase()}</h1>
                                 <motion.h2>#{pathId}</motion.h2>
                                 <motion.img src={`https://pokeres.bastionbot.org/images/pokemon/${pathId}.png`} alt='pokemon' />
                                 <Types>
@@ -151,26 +152,3 @@ const CardShadow = styled(motion.div)`
 `;
 
 export default Pokemon;
-
-/*return (
-    <div>
-        <h1>{`${pokeData[pathId-1].name.toUpperCase()}`}</h1>
-        <h3>{`${pathId}`}</h3>
-        <img src={`https://pokeres.bastionbot.org/images/pokemon/${pathId}.png`} alt='pokemon' />
-    </div>
-)*/
-
-/*<div>
-            {pokeData.map((data) => (
-                <div>
-                    <h1>{`${data.name}`}</h1>
-                    <h3>{`${pathId}`}</h3>
-                    <img src={`https://pokeres.bastionbot.org/images/pokemon/${pathId}.png`} alt='pokemon' />
-                </div>
-            ))[pathId-1]}
-            </div>*/
-
-
-            /*console.log(pathId, 'pathid')
-            console.log("DATA", pokeData)
-            console.log(pokeType, 'type')*/
