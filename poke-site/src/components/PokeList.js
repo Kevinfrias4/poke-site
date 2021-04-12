@@ -16,55 +16,56 @@ const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) 
     const[searched, setSearched] = useState([])
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const getPokemon = async () => {
             const res = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=1118`);
             setSearched(res.data.results);
         }
         getPokemon()
-        searched.map((data, id) => {
+        searched.map((data) => {
             if (text === data.name) {
                 document.body.style.overflow = 'auto';
-                /*if (id > 8) {
-                    id = 0;
-                }*/
                 history.push(`/${text}/${data.url.substring(34, data.url.length-1)}/${0}`);
-                setShowDetail(!showDetails)
-                setText('')
+                setShowDetail(!showDetails);
+                setText('');
+                //console.log(data.name);
             } else {
-                console.log('not a pokemon')
+                console.log('not the searched pokemon')
             }
-            return null
+            return null;
         })
     }
 
     const handleChange = (e) => {
-        setText(e.target.value);
+        setText(e.target.value.toLowerCase());
     }
 
     return (
         <>
             <Pagination>
-            <form>
-                <input 
-                    type="text"
-                    value={text}
-                    onChange={handleChange}
-                    placeholder='Search Pokémon!'
-                />
-                <input type="submit" onClick={handleSubmit} />
-            </form>
+                <form onClick={handleSubmit} onSubmit={handleSubmit}>
+                    <Input 
+                        type="text"
+                        value={text}
+                        placeholder='Search'
+                        onChange={handleChange}
+                    />
+                    <Input type="submit" onClick={handleSubmit}/>
+                </form>
                 {prevPage && <Button onClick={prevPage}>Previous</Button>}
                 {nextPage && <Button onClick={nextPage}>Next</Button>}
             </Pagination>
             <List variants={listSlide} initial='hidden' animate='show' exit='exit'>
                 {pokeData.map((data, id) => (
-                <Link to={`/${data.name}/${data.url.substring(34, data.url.length-1)}/${id}`} key={id} onClick={showDet}>
+               // <Link to={`/${data.name}/${data.url.substring(34, data.url.length-1)}/${id}`} key={id} onClick={showDet}>
                     <PokeContainer className='card'>
+                    <Link to={`/${data.name}/${data.url.substring(34, data.url.length-1)}/${id}`} key={id} onClick={showDet}>
+
                         <motion.h3>{`${data.name}`}</motion.h3>
                         <motion.img src={`https://pokeres.bastionbot.org/images/pokemon/${data.url.substring(34, data.url.length-1)}.png`} alt='pokemon' />
+                        </Link>
                     </PokeContainer>
-                </Link>
+               // </Link>
                 ))}
             </List>
         </>
@@ -86,7 +87,7 @@ const List = styled(motion.div)`
 `;
 
 const PokeContainer = styled(motion.div)`
-    cursor: pointer;
+    //cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -156,6 +157,7 @@ const PokeContainer = styled(motion.div)`
             -webkit-filter: drop-shadow(10px 10px 10px #929191);
             filter: drop-shadow(7px 7px 7px #696969);
             object-fit: cover;
+            cursor: pointer;
         }
         h3 {
             transform: scale(2.5) translateY(-13px) skew(3deg);
@@ -198,6 +200,17 @@ const Pagination = styled.div`
     margin: 0.7rem;
     left: 44%;
     top: -1.8%;
+`;
+
+const Input = styled.input`
+    outline: none;
+    //border: none;
+    padding: 0.5rem;
+    &:hover {
+        background:gold;
+        transition: 1s;
+        transform: scale(1.1)
+    }
 `;
 
 const Button = styled.button`
