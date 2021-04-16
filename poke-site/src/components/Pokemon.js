@@ -59,6 +59,10 @@ const Pokemon = ({ pokeData, pathId, location, pokeType, setPokeType, showDetail
                                     )}
                                 </Types>
                                 <h4>HP:{' ' + pokeType.stats[0].base_stat}</h4>
+                                <h4>HEIGHT:{' ' + pokeType.height}</h4>
+                                <h4>WEIGHT:{' ' + pokeType.weight}</h4>
+                                <p>{pokeType.location_area}</p>
+                                {/*<img src={pokeType.sprites.other.dream_world['front_default']} alt=""/>*/}
                             </motion.div>
                         );
                     })[num1]}
@@ -103,6 +107,7 @@ const PokeCard = styled(motion.div)`
     border-radius: 50px;
     background: white;
     overflow-y: scroll;
+    scroll-behavior: inherit;
     &.none::-webkit-scrollbar {
         width: 0rem;
     }

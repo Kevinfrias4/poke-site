@@ -9,7 +9,7 @@ const particlesConfig = {
         }
       },
       color: {
-        //value: "#4016a1"
+        //value: "#4016a1",
         value: '#000000'
       },
       shape: {

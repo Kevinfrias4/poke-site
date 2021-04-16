@@ -30,7 +30,7 @@ const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) 
                 setText('');
                 //console.log(data.name);
             } else {
-                console.log('not the searched pokemon')
+               console.log('not the searched pokemon')
             }
             return null;
         })
@@ -45,28 +45,27 @@ const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) 
             <Pagination>
                 <form onClick={handleSubmit} onSubmit={handleSubmit}>
                     <Input 
+                        className='input'
                         type="text"
                         value={text}
-                        placeholder='Search'
+                        placeholder='Search Pokemon'
                         onChange={handleChange}
                     />
-                    <Input type="submit" onClick={handleSubmit}/>
+                    <Input className='search' type="submit" onClick={handleSubmit} value='Search'/>
                 </form>
-                {prevPage && <Button onClick={prevPage}>Previous</Button>}
-                {nextPage && <Button onClick={nextPage}>Next</Button>}
+                {prevPage && <Button className='button' onClick={prevPage}>Previous</Button>}
+                {nextPage && <Button className='button' onClick={nextPage}>Next</Button>}
             </Pagination>
-            <List variants={listSlide} initial='hidden' animate='show' exit='exit'>
+            <List variants={listSlide} initial='hidden' animate='show'>
                 {pokeData.map((data, id) => (
-               // <Link to={`/${data.name}/${data.url.substring(34, data.url.length-1)}/${id}`} key={id} onClick={showDet}>
+                <Link to={`/${data.name}/${data.url.substring(34, data.url.length-1)}/${id}`} key={id} onClick={showDet}>
                     <PokeContainer className='card'>
-                    <Link to={`/${data.name}/${data.url.substring(34, data.url.length-1)}/${id}`} key={id} onClick={showDet}>
-
                         <motion.h3>{`${data.name}`}</motion.h3>
                         <motion.img src={`https://pokeres.bastionbot.org/images/pokemon/${data.url.substring(34, data.url.length-1)}.png`} alt='pokemon' />
-                        </Link>
                     </PokeContainer>
-               // </Link>
+                </Link>
                 ))}
+                {/*<img  className='back' src="https://wallup.net/wp-content/uploads/2017/11/17/238787-Pokemon-Pok%C3%A9balls-Pok%C3%A9dex.jpg" alt=""/> */}
             </List>
         </>
     );
@@ -74,37 +73,54 @@ const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) 
 
 const List = styled(motion.div)`
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 0.5fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 0.5fr));
+    //400px
     grid-column-gap: 0rem;
-    grid-row-gap: 1rem;
+    grid-row-gap: 0.1rem;
     a {
         cursor: default;
         text-decoration: none;
     }
-    overflow: hidden;
-    height: 95vh;
-    margin-top: 1.5rem;
+    overflow-x: hidden;
+    width: 100%;
+    height: 96vh;
+    //background: #ffffff;
+    @media screen and (max-width: 768px) {
+        height: 100%;
+        width: 100%;
+        justify-content: center;
+        margin-left: 0rem;
+        margin-top: 1.5rem;
+        overflow-x: hidden;
+        padding-bottom: 1rem;
+    }
 `;
 
 const PokeContainer = styled(motion.div)`
-    //cursor: pointer;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 80%;
     box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
-    border-radius: 25px;
+    border-radius: 35px;
     border-width: 5px;
     padding: 0rem 0rem 2rem 0rem;
-    margin: 0.5rem 0rem 0rem 2rem;
+    margin: 1rem 0rem 0rem 1.5rem;
     //overflow: hidden;
+    //background: #eafcff;
+    background: rgba( 205, 205, 205, 0.2 );
+    box-shadow: 0 8px 12px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    //border: 2px solid rgba( 255, 255, 255, 0.18 );
     //background: linear-gradient(to bottom right, thistle, lightblue, white);
     &.card:hover {
         background: linear-gradient(to bottom right,hotpink, white, hotpink);
         transform: scale(0.9);
-        transition: 1.3s ease;
-        border: none;
+        transition: 1.6s ease;
+        //border: none;
         //border-radius: 50%;
         position: relative;
         //overflow: hidden;
@@ -173,13 +189,20 @@ const PokeContainer = styled(motion.div)`
                 1px 5px 1px #919191,
                 1px 6px 1px #919191,
                 1px 7px 1px #919191,
-                1px 8px 1px #919191,
-                1px 9px 1px #919191,
-                1px 10px 1px #919191,
+                //1px 8px 1px #919191,
+                //1px 9px 1px #919191,
+                //1px 10px 1px #919191,
                 1px 18px 6px rgba(16,16,16,0.4),
                 1px 22px 10px rgba(16,16,16,0.2),
                 1px 25px 35px rgba(16,16,16,0.2),
                 1px 30px 60px rgba(16,16,16,0.4);
+        }
+    }
+
+    &:not(hover) {
+        transition: 1.8s ease;
+        img, h3 {
+            transition: 0.4s ease;
         }
     }
     
@@ -200,11 +223,36 @@ const Pagination = styled.div`
     margin: 0.7rem;
     left: 44%;
     top: -1.8%;
+    @media screen and (max-width: 768px) {
+        position: relative;
+        left: 0rem;
+        .button {
+            text-align: center;
+            padding: 0rem;
+            height: 33px;
+            width: 2.5rem;
+            margin: 0.1rem;
+            margin-top: 0rem;
+            justify-content: center;
+            font-size: 10px;
+        }
+        .input {
+            width: 4rem;
+            margin: 0.1rem;
+            margin-top: 0rem;
+            background: lightblue;
+            font-size: 10px;
+        }
+        .search {
+            width: 2.5rem;
+            font-size: 10px;
+        }
+    }
 `;
 
 const Input = styled.input`
     outline: none;
-    //border: none;
+    border: none;
     padding: 0.5rem;
     &:hover {
         background:gold;

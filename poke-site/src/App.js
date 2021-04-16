@@ -15,7 +15,7 @@ function App() {
   const[isLoading, setIsLoading] = useState(true);
   const[nextPageUrl, setNextPageUrl] = useState();
   const[prevPageUrl, setPrevPageUrl] = useState();
-  const[currPage, setCurrPage] = useState('https://pokeapi.co/api/v2/pokemon?limit=9?offset=9');
+  const[currPage, setCurrPage] = useState('https://pokeapi.co/api/v2/pokemon?limit=12?offset=12');
   const location = useLocation();
   const pathId = location.pathname.split('/')[2];
 
@@ -70,7 +70,7 @@ function App() {
             duration: 2,
             ease: "easeInOut",
             times: [0, 0.2, 0.5, 0.8, 1],
-            loop: Infinity,
+            repeat: Infinity,
             repeatDelay: 1
           }}
           //https://iconape.com/wp-content/png_logo_vector/pokeball-logo.png
@@ -98,6 +98,14 @@ const Loading = styled.div`
     position: absolute;
     margin-top: 10rem;
     object-fit: cover;
+  }
+  @media screen and (max-width: 768px) {
+    overflow: hidden;
+    img {
+      height: 20vh;
+      width: 20vh;
+      top: 10%;
+    }
   }
 `;
 
