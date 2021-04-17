@@ -47,7 +47,7 @@ const Pokemon = ({ pokeData, pathId, location, pokeType, setPokeType, showDetail
                         const color = typeColor[pokeType.types[0].type.name];
                         return (
                             <motion.div style={{background:`linear-gradient(to bottom, ${color}, white)`, width: '100%', borderRadius: '50px',  boxShadow:'7px 7px 30px #696969' }}>
-                                <ParticleBackground className='back' />
+                                <ParticleBackground />
                                 {/*<motion.h1>{`${data.name.toUpperCase()}`}</motion.h1>*/}
                                 <h1>{pokeType.name.toUpperCase()}</h1>
                                 <motion.h2>#{pathId}</motion.h2>
@@ -158,9 +158,6 @@ const PokeCard = styled(motion.div)`
             }
             transform: translateY(-200px);
             margin: 0rem;
-        }
-        .back {
-            font-size: 20px;
         }
         @keyframes bounce {
             50% {
