@@ -1,7 +1,7 @@
 const particlesConfig = {
     particles: {
       number: {
-        value: 40,
+        value: 50,
         //60
         density: {
           enable: true,
@@ -9,8 +9,8 @@ const particlesConfig = {
         }
       },
       color: {
-        //value: "#4016a1",
-        value: '#000000'
+        value: "#4016a1",
+        //value: '#000000'
       },
       shape: {
         type: "circle",

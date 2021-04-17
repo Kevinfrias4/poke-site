@@ -1,6 +1,6 @@
 export const popUp = {
     hidden: {
-        y: -500,
+        y: 500,
         //opacity: 0,
         //scale: 0,
     },
@@ -10,13 +10,13 @@ export const popUp = {
         //scale: 1,
         transition: {
             type: 'spring',
-            ease: 'easeOut',
-            bounce: 0.5,
-            duration: 1.95,
+            //ease: 'easeOut',
+            bounce: 0.3,
+            duration: 1.5,
         },
     },
     exit:{
-        y:-900,
+        y: 900,
         //opacity: 0,
         //scale: 0,
         transition: { 

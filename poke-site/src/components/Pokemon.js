@@ -47,12 +47,12 @@ const Pokemon = ({ pokeData, pathId, location, pokeType, setPokeType, showDetail
                         const color = typeColor[pokeType.types[0].type.name];
                         return (
                             <motion.div style={{background:`linear-gradient(to bottom, ${color}, white)`, width: '100%', borderRadius: '50px',  boxShadow:'7px 7px 30px #696969' }}>
-                                <ParticleBackground />
+                                <ParticleBackground className='back' />
                                 {/*<motion.h1>{`${data.name.toUpperCase()}`}</motion.h1>*/}
                                 <h1>{pokeType.name.toUpperCase()}</h1>
                                 <motion.h2>#{pathId}</motion.h2>
                                 <motion.img src={`https://pokeres.bastionbot.org/images/pokemon/${pathId}.png`} alt='pokemon' />
-                                <Types>
+                                <Types className='types'>
                                     <p style={{backgroundColor: color}}>{pokeType.types[0].type.name}</p>
                                     {pokeType.types[1] && (
                                         <p style={{backgroundColor: typeColor[pokeType.types[1].type.name]}}>{pokeType.types[1].type.name}</p>
@@ -89,6 +89,7 @@ const Types = styled(motion.div)`
         margin: 0rem 1rem 0rem 1rem;
         border-radius: 25px;
         box-shadow: inset 10px 10px 13px 0 rgba(0, 0, 0, 0.4), inset -10px -10px 8px 0 rgba(255, 255, 255, 0.3);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 50px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
         //box-shadow: inset 10px 10px 7px 0 rgba(0, 0, 0, 0.2), inset -10px -10px 18px 0 rgba(255, 255, 255, 0.3);
         color: #696969;
     }
@@ -107,7 +108,6 @@ const PokeCard = styled(motion.div)`
     border-radius: 50px;
     background: white;
     overflow-y: scroll;
-    scroll-behavior: inherit;
     &.none::-webkit-scrollbar {
         width: 0rem;
     }
@@ -133,6 +133,40 @@ const PokeCard = styled(motion.div)`
     }
     h2 {
         transform: translateY(-475px);
+    }
+    @media screen and (max-width: 768px) {
+        overflow: hidden;
+        margin-left: 0;
+        width: 100%;
+        height: 100%;
+        box-shadow: 0px -9px 30px 17px rgba(108, 170, 211, 0.849);
+        overflow-y: scroll;
+        img {
+            width: 35vh;
+            height: 35vh;
+            transform: translateY(-220px)
+        }
+        h1, h4{
+            transform: translateY(-170px)
+        }
+        h2 {
+            transform: translateY(-195px)
+        }
+        .types {
+            p {
+                margin: 0rem 0.5rem 0rem 0.5rem;
+            }
+            transform: translateY(-200px);
+            margin: 0rem;
+        }
+        .back {
+            font-size: 20px;
+        }
+        @keyframes bounce {
+            50% {
+                transform: translateX(0%) translateY(-90.9%) scale(1.2) skewX(3.5deg)
+            }
+        }
     }
 `;
 

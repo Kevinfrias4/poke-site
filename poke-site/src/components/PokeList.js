@@ -41,10 +41,12 @@ const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) 
     }
 
     return (
-        <>
+        <MainPage variants={listSlide} initial='hidden' animate='show'>
             <Pagination>
                 <form onClick={handleSubmit} onSubmit={handleSubmit}>
                     <Input 
+                        name="viewport" 
+                        content="width=device-width, initial-scale=1, maximum-scale=1"
                         className='input'
                         type="text"
                         value={text}
@@ -56,7 +58,7 @@ const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) 
                 {prevPage && <Button className='button' onClick={prevPage}>Previous</Button>}
                 {nextPage && <Button className='button' onClick={nextPage}>Next</Button>}
             </Pagination>
-            <List variants={listSlide} initial='hidden' animate='show'>
+            <List>
                 {pokeData.map((data, id) => (
                 <Link to={`/${data.name}/${data.url.substring(34, data.url.length-1)}/${id}`} key={id} onClick={showDet}>
                     <PokeContainer className='card'>
@@ -67,9 +69,17 @@ const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) 
                 ))}
                 {/*<img  className='back' src="https://wallup.net/wp-content/uploads/2017/11/17/238787-Pokemon-Pok%C3%A9balls-Pok%C3%A9dex.jpg" alt=""/> */}
             </List>
-        </>
+        </MainPage>
     );
 }
+
+const MainPage = styled(motion.div)`
+    margin: 0rem;
+    padding: 0rem;
+    @media screen and (max-width: 768px) {
+        background: #ffd890;
+    }
+`;
 
 const List = styled(motion.div)`
     display: grid;
@@ -83,16 +93,20 @@ const List = styled(motion.div)`
     }
     overflow-x: hidden;
     width: 100%;
-    height: 96vh;
+    height: 97vh;
+    margin-top: 1rem;
     //background: #ffffff;
     @media screen and (max-width: 768px) {
+        background: #ffd890;
         height: 100%;
         width: 100%;
         justify-content: center;
         margin-left: 0rem;
-        margin-top: 1.5rem;
+        margin-top: 0rem;
         overflow-x: hidden;
         padding-bottom: 1rem;
+        -webkit-tap-highlight-color: transparent;
+        scroll-behavior: smooth;
     }
 `;
 
@@ -103,15 +117,16 @@ const PokeContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     width: 80%;
-    box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
+    box-shadow: 0 3px 15px rgba(163, 163, 163, 0.5);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 50px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
     border-radius: 35px;
     border-width: 5px;
     padding: 0rem 0rem 2rem 0rem;
     margin: 1rem 0rem 0rem 1.5rem;
     //overflow: hidden;
-    //background: #eafcff;
-    background: rgba( 205, 205, 205, 0.2 );
-    box-shadow: 0 8px 12px 0 rgba( 31, 38, 135, 0.37 );
+    background: #eeeded;
+    //background: rgba( 205, 205, 205, 0.2);
+    //box-shadow: 0 8px 12px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 4px );
     -webkit-backdrop-filter: blur( 4px );
     //border: 2px solid rgba( 255, 255, 255, 0.18 );
@@ -226,6 +241,7 @@ const Pagination = styled.div`
     @media screen and (max-width: 768px) {
         position: relative;
         left: 0rem;
+        margin: 0rem;
         .button {
             text-align: center;
             padding: 0rem;
@@ -235,15 +251,18 @@ const Pagination = styled.div`
             margin-top: 0rem;
             justify-content: center;
             font-size: 10px;
+            border-radius: 10px;
         }
         .input {
             width: 4rem;
             margin: 0.1rem;
             margin-top: 0rem;
-            background: lightblue;
+            background: #e3f8ff;
             font-size: 10px;
         }
         .search {
+            border-radius: 10px;
+
             width: 2.5rem;
             font-size: 10px;
         }
