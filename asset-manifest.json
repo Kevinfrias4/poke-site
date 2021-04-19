@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/poke-site/static/js/main.28bd6dcd.chunk.js",
-    "main.js.map": "/poke-site/static/js/main.28bd6dcd.chunk.js.map",
+    "main.js": "/poke-site/static/js/main.f1a2e391.chunk.js",
+    "main.js.map": "/poke-site/static/js/main.f1a2e391.chunk.js.map",
     "runtime-main.js": "/poke-site/static/js/runtime-main.453bbec2.js",
     "runtime-main.js.map": "/poke-site/static/js/runtime-main.453bbec2.js.map",
-    "static/js/2.d8e1fd43.chunk.js": "/poke-site/static/js/2.d8e1fd43.chunk.js",
-    "static/js/2.d8e1fd43.chunk.js.map": "/poke-site/static/js/2.d8e1fd43.chunk.js.map",
+    "static/js/2.d4051ca8.chunk.js": "/poke-site/static/js/2.d4051ca8.chunk.js",
+    "static/js/2.d4051ca8.chunk.js.map": "/poke-site/static/js/2.d4051ca8.chunk.js.map",
     "static/js/3.dad25bd0.chunk.js": "/poke-site/static/js/3.dad25bd0.chunk.js",
     "static/js/3.dad25bd0.chunk.js.map": "/poke-site/static/js/3.dad25bd0.chunk.js.map",
     "index.html": "/poke-site/index.html",
-    "static/js/2.d8e1fd43.chunk.js.LICENSE.txt": "/poke-site/static/js/2.d8e1fd43.chunk.js.LICENSE.txt"
+    "static/js/2.d4051ca8.chunk.js.LICENSE.txt": "/poke-site/static/js/2.d4051ca8.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.453bbec2.js",
-    "static/js/2.d8e1fd43.chunk.js",
-    "static/js/main.28bd6dcd.chunk.js"
+    "static/js/2.d4051ca8.chunk.js",
+    "static/js/main.f1a2e391.chunk.js"
   ]
 }
