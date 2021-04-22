@@ -15,7 +15,7 @@ const particlesConfig = {
       shape: {
         type: "circle",
         stroke: {
-          width: 1,
+          width: 0,
           color: "#ffffff"
         },
         polygon: {
@@ -61,8 +61,8 @@ const particlesConfig = {
       },
       move: {
         enable: true,
-        speed: 3,
-        direction: "top-right",
+        speed: 2,
+        direction: "top",
         random: true,
         straight: true,
         out_mode: "out",

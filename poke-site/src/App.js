@@ -101,7 +101,8 @@ const Loading = styled.div`
   }
   @media screen and (max-width: 768px) {
     overflow: hidden;
-    background: #ffd890;
+    //background: #f8dca8;
+    //background: #9ce7af;
     img {
       height: 20vh;
       width: 20vh;

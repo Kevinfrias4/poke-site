@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { listSlide } from '../animations'
+import { listSlide, navSlide } from '../animations'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faArrowAltCircleRight, faArrowAltCircleLeft, faSearch } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) => {
 
     function showDet () {
+        document.body.style.overflow = 'hidden';
         setShowDetail(!showDetails);
     };
 
@@ -41,34 +44,36 @@ const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) 
     }
 
     return (
-        <MainPage variants={listSlide} initial='hidden' animate='show'>
-            <Pagination>
+        <MainPage>
+            <Pagination variants={navSlide} initial='hidden' animate='show' >
                 <form onClick={handleSubmit} onSubmit={handleSubmit}>
                     <Input 
                         name="viewport" 
+                        fontSize="16px"
                         content="width=device-width, initial-scale=1, maximum-scale=1"
                         className='input'
                         type="text"
                         value={text}
-                        placeholder='Search Pokemon'
+                        placeholder='Search Pokemon!'
                         onChange={handleChange}
                     />
-                    <Input className='search' type="submit" onClick={handleSubmit} value='Search'/>
+                    <FontAwesomeIcon className='search' onClick={handleSubmit} color={'white'} icon={faSearch} />
                 </form>
-                {prevPage && <Button className='button' onClick={prevPage}>Previous</Button>}
-                {nextPage && <Button className='button' onClick={nextPage}>Next</Button>}
             </Pagination>
-            <List>
+            <List variants={listSlide} initial='hidden' animate='show'>
                 {pokeData.map((data, id) => (
                 <Link to={`/${data.name}/${data.url.substring(34, data.url.length-1)}/${id}`} key={id} onClick={showDet}>
-                    <PokeContainer className='card'>
+                    <PokeContainer onTap={{scale: 0.9}} className='card'>
                         <motion.h3>{`${data.name}`}</motion.h3>
                         <motion.img src={`https://pokeres.bastionbot.org/images/pokemon/${data.url.substring(34, data.url.length-1)}.png`} alt='pokemon' />
                     </PokeContainer>
                 </Link>
                 ))}
-                {/*<img  className='back' src="https://wallup.net/wp-content/uploads/2017/11/17/238787-Pokemon-Pok%C3%A9balls-Pok%C3%A9dex.jpg" alt=""/> */}
             </List>
+            <Pagination2>
+                {prevPage && <Button className='button' onClick={prevPage}><FontAwesomeIcon icon={faArrowAltCircleLeft}/></Button>}
+                {nextPage && <Button className='button' onClick={nextPage}><FontAwesomeIcon icon={faArrowAltCircleRight}/></Button>}
+            </Pagination2>
         </MainPage>
     );
 }
@@ -77,14 +82,14 @@ const MainPage = styled(motion.div)`
     margin: 0rem;
     padding: 0rem;
     @media screen and (max-width: 768px) {
-        background: #ffd890;
+        //background: #ffd890;
+        background: #ee8080;
     }
 `;
 
 const List = styled(motion.div)`
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 0.5fr));
-    //400px
     grid-column-gap: 0rem;
     grid-row-gap: 0.1rem;
     a {
@@ -92,19 +97,21 @@ const List = styled(motion.div)`
         text-decoration: none;
     }
     overflow-x: hidden;
+    overflow-y: none;
     width: 100%;
-    height: 97vh;
-    margin-top: 1rem;
-    //background: #ffffff;
+    height: 100%;
+    margin-top: 3.5rem;
+    padding-bottom: 2.5rem;
     @media screen and (max-width: 768px) {
-        background: #ffd890;
+        background: #ffffff;
+        //background: #b7f0c5;
         height: 100%;
         width: 100%;
         justify-content: center;
         margin-left: 0rem;
         margin-top: 0rem;
         overflow-x: hidden;
-        padding-bottom: 1rem;
+        padding-bottom: 2.5rem;
         -webkit-tap-highlight-color: transparent;
         scroll-behavior: smooth;
     }
@@ -117,28 +124,21 @@ const PokeContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     width: 80%;
-    box-shadow: 0 3px 15px rgba(163, 163, 163, 0.5);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 50px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
     border-radius: 35px;
     border-width: 5px;
     padding: 0rem 0rem 2rem 0rem;
-    margin: 1rem 0rem 0rem 1.5rem;
-    //overflow: hidden;
+    margin: 1.5rem 0rem 0rem 1.5rem;
     background: #eeeded;
-    //background: rgba( 205, 205, 205, 0.2);
     //box-shadow: 0 8px 12px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 4px );
     -webkit-backdrop-filter: blur( 4px );
-    //border: 2px solid rgba( 255, 255, 255, 0.18 );
-    //background: linear-gradient(to bottom right, thistle, lightblue, white);
     &.card:hover {
         background: linear-gradient(to bottom right,hotpink, white, hotpink);
         transform: scale(0.9);
         transition: 1.6s ease;
-        //border: none;
-        //border-radius: 50%;
+        border-radius: 50%;
         position: relative;
-        //overflow: hidden;
         //background Color shift
         background-image: (linear-gradient(270deg, #8e9ac2, #42579a));
         background-size: 400% 400%;
@@ -181,7 +181,6 @@ const PokeContainer = styled(motion.div)`
                 background-position: 1% 0%;
             }
         }
-
         img {
             transform: scale(2.3) translateY(-8px) translateX(-4px) skew(3.5deg);
             transition: 1.75s ease;
@@ -202,25 +201,19 @@ const PokeContainer = styled(motion.div)`
                 1px 3px 1px #919191,
                 1px 4px 1px #919191,
                 1px 5px 1px #919191,
-                1px 6px 1px #919191,
-                1px 7px 1px #919191,
-                //1px 8px 1px #919191,
-                //1px 9px 1px #919191,
-                //1px 10px 1px #919191,
                 1px 18px 6px rgba(16,16,16,0.4),
                 1px 22px 10px rgba(16,16,16,0.2),
                 1px 25px 35px rgba(16,16,16,0.2),
                 1px 30px 60px rgba(16,16,16,0.4);
         }
     }
-
     &:not(hover) {
         transition: 1.8s ease;
         img, h3 {
             transition: 0.4s ease;
         }
     }
-    
+
     img {
         object-fit: cover;
         width: 12vh;
@@ -229,42 +222,65 @@ const PokeContainer = styled(motion.div)`
     h3 {
         color: grey;
     }
+    @media screen and (max-width: 768px) {
+        &:hover {
+            pointer-events: none;
+        }
+        &:not(hover) {
+            pointer-events: none;
+        }
+    }
 `;
 
-const Pagination = styled.div`
+const Pagination = styled(motion.div)`
     display: flex;
     position: absolute;
     justify-content: center;
     margin: 0.7rem;
-    left: 44%;
-    top: -1.8%;
+    margin-top: 0;
+    margin-left: 0;
+    width: 100%;
+    top: -4.5%;
+    padding: 0.7rem 0rem 0rem 0rem;
+    background: #ee8080;
+    input {
+        width: 10rem;
+        height: 1rem;
+        border-radius: 0px 15px 15px 15px;
+        margin: 1rem;
+        margin-top: 2rem;
+    }
+    .search {
+        color: lightblue;
+        margin-left: 0.5rem;
+        font-size: 30px;
+        outline: none;
+        &:hover{
+            color: #ffeb77;
+        }
+    }
     @media screen and (max-width: 768px) {
         position: relative;
+        width: 100%;
         left: 0rem;
         margin: 0rem;
-        .button {
-            text-align: center;
-            padding: 0rem;
-            height: 33px;
-            width: 2.5rem;
-            margin: 0.1rem;
-            margin-top: 0rem;
-            justify-content: center;
-            font-size: 10px;
-            border-radius: 10px;
-        }
+        padding: 0.9rem 0rem 0.9rem 0rem;
         .input {
-            width: 4rem;
+            -webkit-appearance: none;
+            -webkit-border-radius: 0;
+            width: 7rem;
+            height: 1rem;
             margin: 0.1rem;
             margin-top: 0rem;
             background: #e3f8ff;
-            font-size: 10px;
+            font-size: 13px;
+            border-radius: 0rem 15px 15px 15px;
         }
         .search {
-            border-radius: 10px;
-
-            width: 2.5rem;
-            font-size: 10px;
+            color: white;
+            align-items: center;
+            width: 4rem;
+            transform: translateY(3px)
         }
     }
 `;
@@ -274,20 +290,56 @@ const Input = styled.input`
     border: none;
     padding: 0.5rem;
     &:hover {
-        background:gold;
+        background:#ffeb7a;
         transition: 1s;
         transform: scale(1.1)
     }
 `;
 
+const Pagination2 = styled.div`
+    padding-top: 1rem;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2rem;
+    background: #ee8080;
+
+`;
+
 const Button = styled.button`
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 6rem;
     outline: none;
     border: none;
     padding: 0.5rem;
+    height: 50px;
+    font-size: 30px;
+    color: #fd6d6d;
+    border-radius: 10px;
+    margin: 0rem 1.5rem 2rem 1.5rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 50px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
     &:hover {
-        background:gold;
+        background:#94ecf8;
         transition: 1s;
         transform: scale(1.1)
+    }
+    @media screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: row;
+        -webkit-appearance: none;
+        -webkit-border-radius: 0;
+        text-align: center;
+        color: #fd6d6d;
+        height: 50px;
+        width: 4rem;
+        margin: 0rem 1.5rem 2rem 1.5rem;
+        margin-top: 0.5rem;
+        justify-content: center;
+        font-size: 30px;
+        border-radius: 10px;
+        background: #eeeeee;
     }
 `;
 

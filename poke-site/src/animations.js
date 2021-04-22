@@ -25,6 +25,29 @@ export const popUp = {
     },
 };
 
+export const navSlide = {
+    hidden: {
+        x: -500,
+        //y:-20,
+        opacity: 0,
+    },
+    show: {
+        x: 0,
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 1.75,
+            //when:'beforeChildren',
+            staggerChildren: 0.5
+        },
+    },
+    exit:{
+        x: -500,
+        opacity: 0,
+        transition: { duration: 0.75 },
+    },
+};
+
 export const listSlide = {
     hidden: {
         //x: -500,

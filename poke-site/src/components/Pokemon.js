@@ -42,7 +42,7 @@ const Pokemon = ({ pokeData, pathId, location, pokeType, setPokeType, showDetail
         {showDetail && (
             <CardShadow className='shadow' onClick={exitDetailHandler}>
                 <PokeCard className='none' variants={popUp} initial='hidden' animate='show' exit='exit' layoutId={num1}>
-                    {pokeData.map((data, id) => {
+                    {pokeData.map((id) => {
                         num = id;
                         const color = typeColor[pokeType.types[0].type.name];
                         return (
@@ -101,6 +101,10 @@ const PokeCard = styled(motion.div)`
     justify-content: center;
     text-align: center;
     position: fixed;
+    top: 0;
+    left: 0; 
+    right: 0;
+    bottom: 0;
     width: 60%;
     height: 80vh;
     margin-left: 13rem;
@@ -112,6 +116,7 @@ const PokeCard = styled(motion.div)`
         width: 0rem;
     }
     img {
+        z-index: 20;
         animation: bounce 15s ease infinite;
         animation-iteration-count: 1;
         width: 50vh;
@@ -140,7 +145,11 @@ const PokeCard = styled(motion.div)`
         width: 100%;
         height: 100%;
         box-shadow: 0px -9px 30px 17px rgba(108, 170, 211, 0.849);
-        overflow-y: scroll;
+        position: fixed;
+        z-index: 20;
+        body {
+            overflow-y: hidden;
+        }
         img {
             width: 35vh;
             height: 35vh;
@@ -170,21 +179,11 @@ const PokeCard = styled(motion.div)`
 const CardShadow = styled(motion.div)`
     width: 100%;
     min-height: 100vh;
-    //overflow-y: scroll;
     background: rgba(0, 0, 0, 0.5);
     position: fixed;
     top: 0;
     left: 0;
     z-index: 5;
-    &::-webkit-scrollbar {
-        width: 0.5rem;
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: #ff7676;
-    }
-    &::-webkit-scrollbar-track {
-        background: white;
-    }
 `;
 
 export default Pokemon;
