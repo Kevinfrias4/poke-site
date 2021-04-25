@@ -102,7 +102,7 @@ const Loading = styled.div`
   @media screen and (max-width: 768px) {
     overflow: hidden;
     //background: #f8dca8;
-    //background: #9ce7af;
+    background: #ee8080;
     img {
       height: 20vh;
       width: 20vh;
@@ -112,13 +112,3 @@ const Loading = styled.div`
 `;
 
 export default App;
-
-/*
-return (
-  <div>
-    <Switch>
-      <Route exact path={'/'} render={() => <PokeList nextPage={nextPageUrl ? nextPage : null} prevPage={prevPageUrl ? prevPage : null} pokeData={pokeData} />} />
-      <Route path={['/pokemon/:pokemonId', '/']} render={() => <Pokemon location={location} pokeData={pokeData} pathId={pathId} pokeType={pokeType} />} />
-    </Switch>
-  </div>
-);*/

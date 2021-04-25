@@ -13,7 +13,7 @@ const particlesConfig = {
         //value: '#000000'
       },
       shape: {
-        type: "circle",
+        type: "image",
         stroke: {
           width: 0,
           color: "#ffffff"
@@ -31,8 +31,8 @@ const particlesConfig = {
         }
       },
       opacity: {
-        value: 0.6313181133058181,
-        //value: 1,
+        //value: 0.6313181133058181,
+        value: 1,
         random: true,
         anim: {
           enable: false,
@@ -42,8 +42,8 @@ const particlesConfig = {
         }
       },
       size: {
-        value: 20,
-        //value: 33,
+        //value: 20,
+        value: 33,
         random: true,
         anim: {
           enable: false,
@@ -56,12 +56,13 @@ const particlesConfig = {
         enable: false,
         distance: 150,
         color: "#000000",
-        opacity: 0.4,
+        //opacity: 0.4,
+        opacity: 1,
         width: 1
       },
       move: {
         enable: true,
-        speed: 2,
+        speed: 1,
         direction: "top",
         random: true,
         straight: true,

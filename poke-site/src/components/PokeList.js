@@ -9,13 +9,9 @@ import axios from 'axios';
 
 const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) => {
 
-    function showDet () {
-        document.body.style.overflow = 'hidden';
-        setShowDetail(!showDetails);
-    };
-
     const history = useHistory();
     const[text, setText] = useState('')
+    const[holderText, setHolderText] = useState('Search Pokemon!')
     const[searched, setSearched] = useState([])
 
     const handleSubmit = (e) => {
@@ -26,14 +22,16 @@ const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) 
         }
         getPokemon()
         searched.map((data) => {
-            if (text === data.name) {
+            if (text === data.name && text.length > 0) {
                 document.body.style.overflow = 'auto';
                 history.push(`/${text}/${data.url.substring(34, data.url.length-1)}/${0}`);
                 setShowDetail(!showDetails);
+                document.body.style.position = 'fixed';
+                //setHolderText('FOUND!')
                 setText('');
                 //console.log(data.name);
             } else {
-               console.log('not the searched pokemon')
+                console.log('not the searched pokemon')
             }
             return null;
         })
@@ -42,6 +40,13 @@ const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) 
     const handleChange = (e) => {
         setText(e.target.value.toLowerCase());
     }
+
+    function showDet () {
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        setShowDetail(!showDetails);
+    };
 
     return (
         <MainPage>
@@ -54,7 +59,7 @@ const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) 
                         className='input'
                         type="text"
                         value={text}
-                        placeholder='Search Pokemon!'
+                        placeholder={holderText}
                         onChange={handleChange}
                     />
                     <FontAwesomeIcon className='search' onClick={handleSubmit} color={'white'} icon={faSearch} />
@@ -63,7 +68,7 @@ const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) 
             <List variants={listSlide} initial='hidden' animate='show'>
                 {pokeData.map((data, id) => (
                 <Link to={`/${data.name}/${data.url.substring(34, data.url.length-1)}/${id}`} key={id} onClick={showDet}>
-                    <PokeContainer onTap={{scale: 0.9}} className='card'>
+                    <PokeContainer className='card'>
                         <motion.h3>{`${data.name}`}</motion.h3>
                         <motion.img src={`https://pokeres.bastionbot.org/images/pokemon/${data.url.substring(34, data.url.length-1)}.png`} alt='pokemon' />
                     </PokeContainer>
@@ -71,8 +76,8 @@ const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) 
                 ))}
             </List>
             <Pagination2>
-                {prevPage && <Button className='button' onClick={prevPage}><FontAwesomeIcon icon={faArrowAltCircleLeft}/></Button>}
-                {nextPage && <Button className='button' onClick={nextPage}><FontAwesomeIcon icon={faArrowAltCircleRight}/></Button>}
+                {prevPage && <Button whileTap={{x: -60, scale:0.7}} className='button1' onClick={prevPage}><FontAwesomeIcon icon={faArrowAltCircleLeft}/></Button>}
+                {nextPage && <Button whileTap={{x: 60, scale:0.7}} className='button2' onClick={nextPage}><FontAwesomeIcon icon={faArrowAltCircleRight}/></Button>}
             </Pagination2>
         </MainPage>
     );
@@ -104,7 +109,7 @@ const List = styled(motion.div)`
     padding-bottom: 2.5rem;
     @media screen and (max-width: 768px) {
         background: #ffffff;
-        //background: #b7f0c5;
+        //background: #d8f9ff;
         height: 100%;
         width: 100%;
         justify-content: center;
@@ -124,7 +129,7 @@ const PokeContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     width: 80%;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 50px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 10px 12px 0px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
     border-radius: 35px;
     border-width: 5px;
     padding: 0rem 0rem 2rem 0rem;
@@ -220,7 +225,8 @@ const PokeContainer = styled(motion.div)`
         height: 12vh;
     }
     h3 {
-        color: grey;
+        letter-spacing: 3px;
+        color: #a39090;
     }
     @media screen and (max-width: 768px) {
         &:hover {
@@ -256,7 +262,9 @@ const Pagination = styled(motion.div)`
         font-size: 30px;
         outline: none;
         &:hover{
-            color: #ffeb77;
+            transform: scale(1.3);
+            color: #fdec88;
+            transition: 0.5s ease;
         }
     }
     @media screen and (max-width: 768px) {
@@ -264,23 +272,26 @@ const Pagination = styled(motion.div)`
         width: 100%;
         left: 0rem;
         margin: 0rem;
-        padding: 0.9rem 0rem 0.9rem 0rem;
+        padding: 1rem 0rem 1rem 0rem;
         .input {
             -webkit-appearance: none;
             -webkit-border-radius: 0;
-            width: 7rem;
-            height: 1rem;
+            width: 8.5rem;
+            height: 1.5rem;
             margin: 0.1rem;
             margin-top: 0rem;
             background: #e3f8ff;
-            font-size: 13px;
+            font-size: 16px;
             border-radius: 0rem 15px 15px 15px;
         }
         .search {
+            //-webkit-appearance: none;
+            //-webkit-border-radius: 0;
             color: white;
             align-items: center;
             width: 4rem;
-            transform: translateY(3px)
+            transform: translateY(3px);
+            -webkit-tap-highlight-color: transparent;
         }
     }
 `;
@@ -302,10 +313,9 @@ const Pagination2 = styled.div`
     justify-content: center;
     padding-bottom: 2rem;
     background: #ee8080;
-
 `;
 
-const Button = styled.button`
+const Button = styled(motion.button)`
     display: flex;
     position: relative;
     justify-content: center;
@@ -321,25 +331,28 @@ const Button = styled.button`
     margin: 0rem 1.5rem 2rem 1.5rem;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 50px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
     &:hover {
-        background:#94ecf8;
-        transition: 1s;
-        transform: scale(1.1)
+        background:#91d7e0;
+        color: white;
+        transition: 0.25s;
+    }
+    &:not(hover) {
+        transition: 0.25s;
     }
     @media screen and (max-width: 768px) {
         display: flex;
         flex-direction: row;
-        -webkit-appearance: none;
-        -webkit-border-radius: 0;
         text-align: center;
         color: #fd6d6d;
-        height: 50px;
-        width: 4rem;
+        height: 60px;
+        width: 6rem;
         margin: 0rem 1.5rem 2rem 1.5rem;
         margin-top: 0.5rem;
         justify-content: center;
-        font-size: 30px;
+        font-size: 40px;
         border-radius: 10px;
         background: #eeeeee;
+        outline: none;
+        -webkit-tap-highlight-color: transparent;
     }
 `;
 

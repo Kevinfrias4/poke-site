@@ -14,6 +14,7 @@ const Pokemon = ({ pokeData, pathId, location, pokeType, setPokeType, showDetail
         const element = e.target;
         if (element.classList.contains('shadow')) {
             document.body.style.overflow = 'auto';
+            document.body.style.position = 'absolute';
             history.push('/');
             setShowDetail(!showDetail);
         }
@@ -58,6 +59,7 @@ const Pokemon = ({ pokeData, pathId, location, pokeType, setPokeType, showDetail
                                         <p style={{backgroundColor: typeColor[pokeType.types[1].type.name]}}>{pokeType.types[1].type.name}</p>
                                     )}
                                 </Types>
+
                                 <h4>HP:{' ' + pokeType.stats[0].base_stat}</h4>
                                 <h4>HEIGHT:{' ' + pokeType.height}</h4>
                                 <h4>WEIGHT:{' ' + pokeType.weight}</h4>
@@ -111,12 +113,13 @@ const PokeCard = styled(motion.div)`
     //box-shadow: 0px -9px 30px 17px rgba(134, 117, 156, 0.849);
     border-radius: 50px;
     background: white;
-    overflow-y: scroll;
+    //overflow-y: scroll;
     &.none::-webkit-scrollbar {
         width: 0rem;
     }
+    overflow-y: scroll;
     img {
-        z-index: 20;
+        z-index: 21;
         animation: bounce 15s ease infinite;
         animation-iteration-count: 1;
         width: 50vh;
@@ -133,6 +136,7 @@ const PokeCard = styled(motion.div)`
     }
 
     h1 {
+        letter-spacing: 3px;
         transform: translateY(-450px);
         color: #696969;
     }
@@ -140,17 +144,22 @@ const PokeCard = styled(motion.div)`
         transform: translateY(-475px);
     }
     @media screen and (max-width: 768px) {
-        overflow: hidden;
+        overflow: scroll;
         margin-left: 0;
         width: 100%;
         height: 100%;
         box-shadow: 0px -9px 30px 17px rgba(108, 170, 211, 0.849);
-        position: fixed;
+        position: absolute;
         z-index: 20;
-        body {
-            overflow-y: hidden;
-        }
+        //min-height: 70vh;
+        //body {
+       //   overflow-y: scroll;
+          //min-height: 100vh;
+        //  min-height: -webkit-fill-available;
+       // }
         img {
+            object-fit: cover;
+            z-index: 21;
             width: 35vh;
             height: 35vh;
             transform: translateY(-220px)
