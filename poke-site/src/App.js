@@ -11,7 +11,7 @@ function App() {
   
   const[pokeType, setPokeType] = useState('');
   const[pokeData, setPokeData] = useState([]);
-  const[showDetail, setShowDetail] = useState(false)
+  const[showDetail, setShowDetail] = useState(false);
   const[isLoading, setIsLoading] = useState(true);
   const[nextPageUrl, setNextPageUrl] = useState();
   const[prevPageUrl, setPrevPageUrl] = useState();

@@ -26,8 +26,8 @@ const PokeList = ({ pokeData, nextPage, prevPage, setShowDetail, showDetails }) 
                 document.body.style.overflow = 'auto';
                 history.push(`/${text}/${data.url.substring(34, data.url.length-1)}/${0}`);
                 setShowDetail(!showDetails);
-                document.body.style.position = 'fixed';
-                //setHolderText('FOUND!')
+                document.body.style.position = 'absolute';
+                setHolderText('Pokemon Found!')
                 setText('');
                 //console.log(data.name);
             } else {
@@ -195,6 +195,7 @@ const PokeContainer = styled(motion.div)`
             cursor: pointer;
         }
         h3 {
+            font-family: 'Freckle Face', cursive;
             transform: scale(2.5) translateY(-13px) skew(3deg);
             transition: 1.8s ease;
             color: whitesmoke;
@@ -205,7 +206,7 @@ const PokeContainer = styled(motion.div)`
                 1px 2px 1px #919191,
                 1px 3px 1px #919191,
                 1px 4px 1px #919191,
-                1px 5px 1px #919191,
+                1px 5px 1px #7e7e7e,
                 1px 18px 6px rgba(16,16,16,0.4),
                 1px 22px 10px rgba(16,16,16,0.2),
                 1px 25px 35px rgba(16,16,16,0.2),
@@ -225,8 +226,10 @@ const PokeContainer = styled(motion.div)`
         height: 12vh;
     }
     h3 {
-        letter-spacing: 3px;
-        color: #a39090;
+        letter-spacing: 2px;
+        color: #b99898;
+        font-family: 'Freckle Face', cursive;
+
     }
     @media screen and (max-width: 768px) {
         &:hover {

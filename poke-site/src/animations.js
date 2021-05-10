@@ -2,10 +2,10 @@ export const popUp = {
     hidden: {
         y: 500,
         //opacity: 0,
-        //scale: 0,
+        //scale: 3,
     },
     show: {
-        y: 70,
+        y: 100,
         //opacity: 1,
         //scale: 1,
         transition: {
@@ -21,6 +21,40 @@ export const popUp = {
         //scale: 0,
         transition: { 
             duration: 0.75,
+        },
+    },
+};
+
+export const stats = {
+    hidden: {
+        y: -970,
+        zIndex: 20,
+        //-370
+        //x: 300,
+        //350
+        opacity: 0,
+        //scale: 0,
+    },
+    show: {
+        zIndex: 20,
+        y: -750,
+        //x: 0,
+        opacity: 1,
+        //scale: 1,
+        transition: {
+            type: 'spring',
+            //ease: 'easeOut',
+            bounce: 0.3,
+            duration: 1,
+        },
+    },
+    exit:{
+        //x: 900,
+        y: -970,
+        //opacity: 0,
+        //scale: 0,
+        transition: { 
+            duration: 0.25,
         },
     },
 };
